@@ -53,6 +53,8 @@ Démarche
 
 3) Méthode displayNote() A FAIRE.
 
-4) Création de la classe fille TextNote  
+4) Création de la classe fille TextNote  -  A FINIR.
 
-5) Création de la classe fille CheckListNote
+5) Création de la classe fille CheckListNote - A FINIR.
+
+6) méthode ave fonction render() - A FAIRE.
