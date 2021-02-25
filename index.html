@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="todo.css">
+    <title>ToDo list</title>
+</head>
+<body>
+    
+    <div id="myDIV" class="header">
+        <h2>My To Do List</h2>
+        <input type="text" id="myInput" placeholder="Title...">
+        <span onclick="newElement()" class="addBtn">Add</span>
+    </div>
+      
+      <ul id="myUL">
+        <li>Hit the gym</li>
+        <li class="checked">Pay bills</li>
+        <li>Meet George</li>
+        <li>Buy eggs</li>
+        <li>Read a book</li>
+        <li>Organize office</li>
+      </ul>
+
+      <div id="notes">
+        <h2>My Notes</h2>
+
+        <ul id="myNotes">
+            <li>Lorem ipsum</li>
+            <li>Lorem ipsum</li>
+            <li>Lorem ipsum</li>
+            <li>Lorem ipsum</li>
+        </ul>
+    </div>
+      <script>
+          class Note{
+              constructor(titre,texte,dateCreation,couleur,rappel){
+                  if(typeof titre === "string") this._titre = titre;
+                  if(typeof texte === "string") this._texte = texte;
+                  if(dateCreation instanceof Date) this._dateCreation = dateCreation;
+                  if(typeof couleur === "string") this._couleur = couleur;
+                  if(rappel instanceof Date) this._rappel = rappel;
+
+              }
+              displayNotes(){
+
+              }
+              //getters//
+              get titre(){
+                  return this_titre;
+              }
+
+              get texte(){
+                  return this_texte;
+              }
+
+              get dateCreation(){
+                  return this_dateCreation;
+              }
+
+              get couleur(){
+                  return this_couleur;
+              }
+
+              get rappel(){
+                  return this_rappel;
+              }
+
+              //setters//
+              set titre(titre){
+                  if(typeof titre === "string"){
+                      return this, `titre: ${this.titre} => ${titre}`;
+                      this._titre = titre;
+                  }
+              }
+
+              set texte(texte){
+                  if(typeof texte === "string"){
+                    return this, `texte: ${this.texte} => ${texte}`;
+                      this._texte = texte;
+                  }
+              }
+
+              set dateCreation(dateCreation){
+                  if(dateCreation instanceof Date){
+                      return this,`date de création: ${this.dateCreation} => ${dateCreation}`;
+                      this._dateCreation = dateCreation;
+                  }
+              }
+
+              set couleur(couleur){
+                  if(typeof couleur === "string"){
+                    return this, `couleur: ${this.couleur} => ${couleur}`;
+                      this._couleur = couleur;
+                      if(couleur === "Rouge"){
+                          return "Urgent et important";
+                      }
+                      if(couleur === "Orange"){
+                          return "Non-urgent et important";
+                      }
+                      if(couleur === "Jaune"){
+                          return "Urgent et non-important";
+                      }
+                      if(couleur === "Vert"){
+                          return "Non-urgent et non-important"
+                      }
+                      return false;
+                  }
+                  return false;
+              }
+
+              set rappel(rappel){
+                if(rappel instanceof Date){
+                      return this,`date de création: ${this.rappel} => ${rappel}`;
+                      this._rappel = rappel;
+                  }
+              }
+
+        }
+
+        class TextNote extends Note{
+
+        }
+
+        class CheckListNote extends Note{
+            
+        }
+      </script>
+</body>
+</html>
