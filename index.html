@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="todo.css">
+    <script src="notes.js"></script>
     <title>ToDo list</title>
 </head>
 <body>
@@ -91,22 +92,14 @@
               }
 
               set couleur(couleur){
-                  if(typeof couleur === "string"){
+                  if(typeof couleur === "string" &&
+                    couleur === "red" ||
+                    couleur === "orange" ||
+                    couleur === "yellow" ||
+                    couleur === "green"){
                     return this, `couleur: ${this.couleur} => ${couleur}`;
                       this._couleur = couleur;
-                      if(couleur === "Rouge"){
-                          return "Urgent et important";
-                      }
-                      if(couleur === "Orange"){
-                          return "Non-urgent et important";
-                      }
-                      if(couleur === "Jaune"){
-                          return "Urgent et non-important";
-                      }
-                      if(couleur === "Vert"){
-                          return "Non-urgent et non-important"
-                      }
-                      return false;
+                      
                   }
                   return false;
               }
@@ -121,11 +114,22 @@
         }
 
         class TextNote extends Note{
+            constructor(titre,texte,dateCreation,couleur,rappel){
+                super(titre,texte,dateCreation,couleur,rappel);
+            }
+            render(){
 
+            }
         }
 
         class CheckListNote extends Note{
-            
+            constructor(titre,todo,dateCreation,couleur,rappel){
+                super(titre,texte,dateCreation,couleur,rappel);
+                this.todo = todo;
+            }
+            render(){
+                
+            }
         }
       </script>
 </body>
