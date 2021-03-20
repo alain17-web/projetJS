@@ -9,31 +9,15 @@
     <title>ToDo list</title>
 </head>
 <body>
+    <div id="container">
     
-    <div id="myDIV" class="header">
-        <h2>My To Do List</h2>
-        <input type="text" id="myInput" placeholder="Title...">
-        <span onclick="newElement()" class="addBtn">Add</span>
-    </div>
-      
-      <ul id="myUL">
-        <li>Hit the gym</li>
-        <li class="checked">Pay bills</li>
-        <li>Meet George</li>
-        <li>Buy eggs</li>
-        <li>Read a book</li>
-        <li>Organize office</li>
-      </ul>
+        <h1>My To Do List</h1>
+            
+    
 
-      <div id="notes">
-        <h2>My Notes</h2>
-
-        <ul id="myNotes">
-            <li>Lorem ipsum</li>
-            <li>Lorem ipsum</li>
-            <li>Lorem ipsum</li>
-            <li>Lorem ipsum</li>
-        </ul>
+    
+        <h1>My Notes</h1>
+            
     </div>
     <script src="notes.js"></script>
       <script>
@@ -41,30 +25,32 @@
               constructor(titre,dateCreation,couleur,rappel){
                   if(typeof titre === "string") this._titre = titre;
                   if(typeof dateCreation === "string") this._dateCreation = dateCreation;
-                  if(typeof couleur === "string") this._couleur = couleur;
+                  if(typeof couleur === "string" && ["rouge","orange","jaune","vert"].includes(couleur)){this._couleur = couleur;}
                   if(typeof rappel === "string") this._rappel = rappel;
 
               }
-              displayNotes(){
-
+              static displayNotes(notesArray,container){
+                for(let note of notesArray){
+                    container.insertAdjacentElement('beforeend',note.render());
+                }
               }
               //getters//
               get titre(){
-                  return this_titre;
+                  return this._titre;
               }
 
               
 
               get dateCreation(){
-                  return this_dateCreation;
+                  return this._dateCreation;
               }
 
               get couleur(){
-                  return this_couleur;
+                  return this._couleur;
               }
 
               get rappel(){
-                  return this_rappel;
+                  return this._rappel;
               }
 
               //setters//
@@ -83,10 +69,7 @@
               }
 
               set couleur(couleur){
-                  if(couleur === "rouge" ||
-                    couleur === "orange" ||
-                    couleur === "jaune" ||
-                    couleur === "vert"){
+                  if(["rouge","orange","jaune","vert"].includes(couleur)){
                         this._couleur = couleur;
                     }
                   
@@ -99,14 +82,45 @@
               }
 
         }
-
+        
         class TextNote extends Note{
             constructor(titre,texte,dateCreation,couleur,rappel){
                 super(titre,dateCreation,couleur,rappel);
-                this.texte = texte;
+                if(typeof texte === "string")this._texte = texte;
             }
             render(){
+                
+                
 
+
+                let newElt = document.createElement("div");
+                newElt.innerHTML = `
+                <h2>${this.titre}</h2>
+                <p>${this.texte}</p>
+                <p> création: ${this.dateCreation}</p>
+                <p> rappel : ${this.rappel}</p>
+                `
+                newElt.style.background = this.couleur;
+                newElt.style.border = "2px solid black";
+                newElt._noteReference_ = this;
+                /*let colorsMapping = {​​
+                                rouge: "red",
+                                orange: "orange",
+                                jaune: "yellow",
+                                vert: "green"
+                                };​​
+                colorsMapping[this.couleur];*/
+                return newElt;
+            }
+
+
+            get texte(){
+                return this._texte;
+            }
+            set texte(texte){
+                if(typeof texte === "string"){
+                    this._texte = texte;
+                }
             }
         }
 
@@ -115,49 +129,84 @@
         class CheckListNote extends Note{
             constructor(titre,toDo,dateCreation,couleur,rappel){
                 super(titre,dateCreation,couleur,rappel);
-                this.toDo = toDo;
+                if(toDo instanceof Array) this._toDo = toDo;
+            }
+
+            get toDo(){
+                return this._toDo;
+            }
+
+            set toDo(toDo){
+                if(toDo instanceof Array) this._toDo = toDo;
             }
             render(){
                 
+
+
+                let newElt = document.createElement("div");
+                newElt.innerHTML = `
+                <h2>${this.titre}</h2>
+                <p>${this.toDo}</p>
+                <p>création: ${this.dateCreation}</p>
+                <p> rappel: ${this.rappel}</p>
+                `
+                newElt.style.background = this.couleur;
+                newElt.style.border = "2px solid black";
+                newElt._noteReference_ = this;
+                /*let colorsMapping = {​​
+                                rouge: "red",
+                                orange: "orange",
+                                jaune: "yellow",
+                                vert: "green"
+                                }​​
+                colorsMapping[this.couleur];*/
+                return newElt;
             }
         }
-
         
-        var notesArray = [
-	{
-		"titre": "Notes Javascript",
-		"texte": "Une méthode est une fonction appartenant à un objet",
-		"date": "15/01/2021",
-		"couleur": "rouge",
-		"dateRappel": "null"
-	},
-	{
-		"titre": "Notes Javascript",
-		"toDo": [
-			{"Faire les courses": true},
-			{"Payer le loyer": false}
-		],
-		"date": "18/01/2021",
-		"couleur": "rouge",
-		"dateRappel": "null"
-	}
-];
-/*console.log(notesArray);
-console.log(notesArray[0].texte);
-console.log(notesArray[1].toDo);*/
 
-for(let noteA of notesArray){
-if(notesArray[0].texte !== undefined){
-    new TextNote(notesArray[0].titre,notesArray[0].texte)
+
+
+let notesArray = [];        
+let notesParsees = JSON.parse(notesJSON
+);
+
+function instantiateNotes(noteParsees,notesArray){
+    for(let noteParsee of notesParsees){
+        if(noteParsee.texte !== undefined){
+        var note = new TextNote(noteParsee.titre,noteParsee.texte,noteParsee.date,noteParsee.couleur,noteParsee.dateRappel);
+            }
+        else if(noteParsee.toDo !== undefined){
+        var note = new CheckListNote(noteParsee.titre,noteParsee.toDo,noteParsee.date,noteParsee.couleur,noteParsee.dateRappel);
+        }
+        notesArray.unshift(note);
+    }  
+    
+    return notesArray;
 }
 
-}
-if(notesArray[1].toDo !== undefined){
-    new CheckListNote(notesArray[1].titre,notesArray[1].toDo)
-}
-  
-console.log(noteA);
+
+
+noteA = new CheckListNote("courses",["faire des courses chez Aldi"],"04/03/2021","red","undefined");
+
+noteB = new TextNote("React","React est une bibliothèque JavaScript libre développée par Facebook depuis 2013.","20/03/2021","vert","undefined");
+
+notesArray.unshift(noteB);
+notesArray.unshift(noteA);
+
+
+instantiateNotes(notesParsees,notesArray);
+
+Note.displayNotes(notesArray,document.querySelector('#container'));
+
+
+
+
+
+
 
       </script>
 </body>
 </html>
+
+

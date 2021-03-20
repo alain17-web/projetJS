@@ -1,10 +1,10 @@
 // Dans l'array toDo un valeur true signifie que cette action est accomplie, une valeur false signifie qu'elle est à faire
-let notesJSON = [
+let notesJSON = `[
 	{
 		"titre": "Notes Javascript",
 		"texte": "Une méthode est une fonction appartenant à un objet",
 		"date": "15/01/2021",
-		"couleur": "rouge",
+		"couleur": "orange",
 		"dateRappel": "null"
 	},
 	{
@@ -17,4 +17,4 @@ let notesJSON = [
 		"couleur": "rouge",
 		"dateRappel": "null"
 	}
-]
+]`
