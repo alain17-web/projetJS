@@ -9,23 +9,20 @@
     <title>ToDo list</title>
 </head>
 <body>
-    <div id="container">
-    
-        <h1>My To Do List</h1>
-            
-    
 
-    
-        <h1>My Notes</h1>
+    <div id="container">
+        <h1>My To Do List</h1>
+        
             
     </div>
+    
     <script src="notes.js"></script>
       <script>
           class Note{
               constructor(titre,dateCreation,couleur,rappel){
                   if(typeof titre === "string") this._titre = titre;
                   if(typeof dateCreation === "string") this._dateCreation = dateCreation;
-                  if(typeof couleur === "string" && ["rouge","orange","jaune","vert"].includes(couleur)){this._couleur = couleur;}
+                  if(typeof couleur === "string" && ["red","orange","yellow","green"].includes(couleur)){this._couleur = couleur;}
                   if(typeof rappel === "string") this._rappel = rappel;
 
               }
@@ -68,11 +65,17 @@
                   }
               }
 
-              set couleur(couleur){
-                  if(["rouge","orange","jaune","vert"].includes(couleur)){
+              /*set couleur(couleur){
+                  if(["red","orange","yellow","green"].includes(couleur)){
                         this._couleur = couleur;
                     }
                   
+              }*/ 
+
+              set couleur(couleur){
+                  if(typeof couleur === "string"){
+                      this._couleur = couleur;
+                  }
               }
 
               set rappel(rappel){
@@ -98,8 +101,7 @@
                 <h2>${this.titre}</h2>
                 <p>${this.texte}</p>
                 <p> création: ${this.dateCreation}</p>
-                <p> rappel : ${this.rappel}</p>
-                `
+                <p> rappel : ${this.rappel}</p>`;
                 newElt.style.background = this.couleur;
                 newElt.style.border = "2px solid black";
                 newElt._noteReference_ = this;
@@ -145,12 +147,15 @@
 
                 let newElt = document.createElement("div");
                 newElt.innerHTML = `
+                <input type="checkbox" value="1" checked> A faire
+                <input type="checkbox" value="2"> Fait
                 <h2>${this.titre}</h2>
                 <p>${this.toDo}</p>
                 <p>création: ${this.dateCreation}</p>
                 <p> rappel: ${this.rappel}</p>
-                `
+                `;
                 newElt.style.background = this.couleur;
+                
                 newElt.style.border = "2px solid black";
                 newElt._noteReference_ = this;
                 /*let colorsMapping = {​​
@@ -187,9 +192,9 @@ function instantiateNotes(noteParsees,notesArray){
 
 
 
-noteA = new CheckListNote("courses",["faire des courses chez Aldi"],"04/03/2021","red","undefined");
+noteA = new CheckListNote("courses",["faire des courses chez Aldi"],"04/03/2021","yellow","null");
 
-noteB = new TextNote("React","React est une bibliothèque JavaScript libre développée par Facebook depuis 2013.","20/03/2021","vert","undefined");
+noteB = new TextNote("React","React est une bibliothèque JavaScript libre développée par Facebook depuis 2013.","20/03/2021","red","null");
 
 notesArray.unshift(noteB);
 notesArray.unshift(noteA);
@@ -199,6 +204,8 @@ instantiateNotes(notesParsees,notesArray);
 
 Note.displayNotes(notesArray,document.querySelector('#container'));
 
+console.log(noteA);
+console.log(noteB);
 
 
 

@@ -1,6 +1,7 @@
 
 #container{
   margin: 15px;
+  padding : 10px;
 }
 
 #container h1{
@@ -9,6 +10,9 @@
 }
 
 #container h2,p{
+  text-align: center;
   padding : 10px;
 }
+
+
 
