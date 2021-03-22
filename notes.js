@@ -8,7 +8,7 @@ let notesJSON = `[
 		"dateRappel": "null"
 	},
 	{
-		"titre": "TO DO",
+		"titre": "Corvées",
 		"toDo": [
 			{"Faire les courses": true},
 			{"Payer le loyer": false}

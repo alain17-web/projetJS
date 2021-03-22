@@ -65,18 +65,19 @@
                   }
               }
 
-              /*set couleur(couleur){
+              set couleur(couleur){
                   if(["red","orange","yellow","green"].includes(couleur)){
                         this._couleur = couleur;
                     }
                   
-              }*/ 
+              }
+            
 
-              set couleur(couleur){
+              /*set couleur(couleur){
                   if(typeof couleur === "string"){
                       this._couleur = couleur;
                   }
-              }
+              }*/
 
               set rappel(rappel){
                 if(typeof rappel === "string"){
@@ -147,20 +148,27 @@
 
                 let newElt = document.createElement("div");
                 newElt.innerHTML = `
-                <input type="checkbox" value="1" checked> A faire
-                <input type="checkbox" value="2"> Fait
-                <h2>${this.titre}</h2>
                 
-                <p>création: <strong>${this.dateCreation}</strong></p>
-                <p> rappel: ${this.rappel}</p>
-                `;
+                <h2>TO DO</h2>
+                <h2>${this.titre}</h2>`
                 for(let objetTache of this.toDo){
                     for(let prop in objetTache){
-                   newElt.innerHTML  += `<h2>${prop}:  ${objetTache[prop]}</h2>`
+                   newElt.innerHTML  += `<h2>${prop}</h2>`
+                   if(objetTache[prop] === true){
+                       newElt.innerHTML += `<input type="checkbox" value="1" checked> Fait
+                       <input type="checkbox" value="2" > A faire`
+                   }else{
+                       newElt.innerHTML += `<input type="checkbox" value="1" > Fait
+                       <input type="checkbox" value="2" checked> A faire`
+                   }
                     }
+                    
                 }
-                newElt.style.background = this.couleur;
+                `<p>création: <strong>${this.dateCreation}</strong></p>
+                <p> rappel: ${this.rappel}</p>
+                `;
                 
+                newElt.style.background = this.couleur;
                 newElt.style.border = "2px solid black";
                 newElt._noteReference_ = this;
                 let colorsMapping = {
@@ -201,8 +209,11 @@ noteA = new CheckListNote("courses",[{"faire des courses chez Aldi":true}],"04/0
 
 noteB = new TextNote("React","React est une bibliothèque JavaScript libre développée par Facebook depuis 2013.","20/03/2021","red","null");
 
+noteC = new CheckListNote("mon avenir",[{"Gagner à l'Euromillion et appeler Shakira":false}],"22/03/2021","red","null");
+
 notesArray.unshift(noteB);
 notesArray.unshift(noteA);
+notesArray.unshift(noteC);
 
 
 instantiateNotes(notesParsees,notesArray);
