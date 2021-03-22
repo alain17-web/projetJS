@@ -12,7 +12,7 @@
 
     <div id="container">
         <h1>My To Do List</h1>
-        
+
             
     </div>
     
@@ -99,19 +99,19 @@
                 let newElt = document.createElement("div");
                 newElt.innerHTML = `
                 <h2>${this.titre}</h2>
-                <p>${this.texte}</p>
-                <p> création: ${this.dateCreation}</p>
+                <p><strong>${this.texte}</strong></p>
+                <p> création: <strong>${this.dateCreation}</strong></p>
                 <p> rappel : ${this.rappel}</p>`;
                 newElt.style.background = this.couleur;
                 newElt.style.border = "2px solid black";
                 newElt._noteReference_ = this;
-                /*let colorsMapping = {​​
-                                rouge: "red",
-                                orange: "orange",
-                                jaune: "yellow",
-                                vert: "green"
-                                };​​
-                colorsMapping[this.couleur];*/
+                let colorsMapping = {
+                rouge: "red",
+                orange: "orange",
+                jaune: "yellow",
+                vert: "green"
+                };
+                colorsMapping[this.couleur];
                 return newElt;
             }
 
@@ -142,7 +142,7 @@
                 if(toDo instanceof Array) this._toDo = toDo;
             }
             render(){
-                
+            
 
 
                 let newElt = document.createElement("div");
@@ -150,21 +150,26 @@
                 <input type="checkbox" value="1" checked> A faire
                 <input type="checkbox" value="2"> Fait
                 <h2>${this.titre}</h2>
-                <p>${this.toDo}</p>
-                <p>création: ${this.dateCreation}</p>
+                
+                <p>création: <strong>${this.dateCreation}</strong></p>
                 <p> rappel: ${this.rappel}</p>
                 `;
+                for(let objetTache of this.toDo){
+                    for(let prop in objetTache){
+                   newElt.innerHTML  += `<h2>${prop}:  ${objetTache[prop]}</h2>`
+                    }
+                }
                 newElt.style.background = this.couleur;
                 
                 newElt.style.border = "2px solid black";
                 newElt._noteReference_ = this;
-                /*let colorsMapping = {​​
-                                rouge: "red",
-                                orange: "orange",
-                                jaune: "yellow",
-                                vert: "green"
-                                }​​
-                colorsMapping[this.couleur];*/
+                let colorsMapping = {
+                rouge: "red",
+                orange: "orange",
+                jaune: "yellow",
+                vert: "green"
+                };
+                colorsMapping[this.couleur];
                 return newElt;
             }
         }
@@ -192,7 +197,7 @@ function instantiateNotes(noteParsees,notesArray){
 
 
 
-noteA = new CheckListNote("courses",["faire des courses chez Aldi"],"04/03/2021","yellow","null");
+noteA = new CheckListNote("courses",[{"faire des courses chez Aldi":true}],"04/03/2021","yellow","null");
 
 noteB = new TextNote("React","React est une bibliothèque JavaScript libre développée par Facebook depuis 2013.","20/03/2021","red","null");
 
@@ -204,8 +209,6 @@ instantiateNotes(notesParsees,notesArray);
 
 Note.displayNotes(notesArray,document.querySelector('#container'));
 
-console.log(noteA);
-console.log(noteB);
 
 
 
