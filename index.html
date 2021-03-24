@@ -9,6 +9,29 @@
     <title>ToDo list</title>
 </head>
 <body>
+    <form id="add" action="">
+        <label for="titreTextNote">Ajouter un titre : </label>
+        <input type="text" id="titreTextNote">
+
+        <label for="texteTextNote">Texte</label>
+        <input type="text" id="texteTextNote">
+
+        <label for="dateCreationTextNote"> date de création</label>
+        <input type="date" id="dateCreationTextNote">
+
+        <label for="dateRappelTextNote"> date de rappel</label>
+        <input type="date" id="dateRappelTextNote">
+
+        <select id="couleurTextNote">
+            <option>orange</option>
+            <option >vert</option>
+            <option>jaune</option>
+            <option>rouge</option>
+        </select>
+
+        <button onclick="createTextNote()"> Créer une nouvelle note</button>
+
+    </form>
 
     <div id="container">
         <h1>My To Do List</h1>
@@ -18,6 +41,35 @@
     
     <script src="notes.js"></script>
       <script>
+          function createTextNote(){
+            event.preventDefault();
+            let titreTextNote = document.querySelector('#titreTextNote');
+            let titreTextNoteValue = titreTextNote.value;
+            
+            let texteTextNot = document.querySelector('#texteTextNote');
+            let texteTextNoteValue = texteTextNote.value;
+
+            let dateCreationTextNote = document.querySelector('#dateCreationTextNote');
+            let dateCreationTextNoteValue = dateCreationTextNote.value;
+
+            let dateRappelTextNote = document.querySelector('#dateRappelTextNote');
+            let dateRappelTextNoteValue = dateRappelTextNote.value;
+
+            let couleurTextNote = document.querySelector('#couleurTextNote');
+            let couleurTextNoteValue = couleurTextNote.value;
+
+            let instanceTextNote = new TextNote(titreTextNoteValue,texteTextNoteValue,dateCreationTextNoteValue,couleurTextNoteValue,dateRappelTextNoteValue);
+            console.log(instanceTextNote);
+            
+            notesArray.unshift(instanceTextNote);
+            Note.displayNotes(notesArray,container);
+
+            localStorage.setItem("tabNotes",JSON.stringify(notesArray));
+            
+          }
+
+
+
           class Note{
               constructor(titre,dateCreation,couleur,rappel){
                   if(typeof titre === "string") this._titre = titre;
@@ -27,6 +79,7 @@
 
               }
               static displayNotes(notesArray,container){
+                  container.innerHTML="";
                 for(let note of notesArray){
                     container.insertAdjacentElement('beforeend',note.render());
                 }
@@ -99,6 +152,7 @@
 
                 let newElt = document.createElement("div");
                 newElt.innerHTML = `
+                <h2>NOTE</2>
                 <h2>${this.titre}</h2>
                 <p><strong>${this.texte}</strong></p>
                 <p> création: <strong>${this.dateCreation}</strong></p>
@@ -186,8 +240,13 @@
 
 
 let notesArray = [];        
-let notesParsees = JSON.parse(notesJSON
-);
+
+if(localStorage.getItem('tabNotes')){
+    notesParsees = JSON.parse(localStorage.getItem('tabNotes'));
+}
+else{
+    notesParsees = JSON.parse(notesJSON);
+}
 
 function instantiateNotes(noteParsees,notesArray){
     for(let noteParsee of notesParsees){
@@ -198,6 +257,7 @@ function instantiateNotes(noteParsees,notesArray){
         var note = new CheckListNote(noteParsee.titre,noteParsee.toDo,noteParsee.date,noteParsee.couleur,noteParsee.dateRappel);
         }
         notesArray.unshift(note);
+        localStorage.setItem("tabNotes",JSON.stringify(notesArray));
     }  
     
     return notesArray;
@@ -215,6 +275,13 @@ notesArray.unshift(noteB);
 notesArray.unshift(noteA);
 notesArray.unshift(noteC);
 
+/*sessionStorage.setItem("monFruit","Mandarine");
+var fruit = sessionStorage.getItem('monFruit');
+sessionStorage.setItem("monFruit","Banane");
+sessionStorage.removeItem("monFruit");
+
+sessionStorage.setItem("monChien", JSON.stringify({prenom: "Billy", race: "labrador",age: 5}));
+JSON.parse( sessionStorage.getItem("monChien"));*/
 
 instantiateNotes(notesParsees,notesArray);
 
