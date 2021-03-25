@@ -1,13 +1,56 @@
 
+h1{
+  text-align:center;
+  margin:15px auto;
+}
+
+h2{
+  text-align: left;
+  color:darkgoldenrod;
+}
+
+#importance{
+  display: inline-block;
+  text-align: left;
+}
+
+option{
+  padding: 25px;
+}
+
+#add{
+  text-align: center;
+  padding: 15px;
+  margin: 15px auto;
+}
+
+label{
+  font-size:larger;
+  width: 100px;
+  display: inline-block;
+}
+
+input{
+  width: 650px;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid #999;
+  font-size: medium;
+}
+
+button{
+  padding: 15px;
+  font-size: large;
+  font-weight: bold;
+  margin-top: 1em;
+  padding: 12px;
+}
 #container{
   margin: 15px;
   padding : 10px;
 }
 
-#container h1{
-  text-align: center;
-  padding: 15px;
-}
+
 
 #container h2,p{
   text-align: center;

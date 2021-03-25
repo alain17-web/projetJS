@@ -9,32 +9,43 @@
     <title>ToDo list</title>
 </head>
 <body>
-    <form id="add" action="">
-        <label for="titreTextNote">Ajouter un titre : </label>
-        <input type="text" id="titreTextNote">
-
-        <label for="texteTextNote">Texte</label>
-        <input type="text" id="texteTextNote">
-
-        <label for="dateCreationTextNote"> date de création</label>
-        <input type="date" id="dateCreationTextNote">
-
-        <label for="dateRappelTextNote"> date de rappel</label>
-        <input type="date" id="dateRappelTextNote">
-
-        <select id="couleurTextNote">
-            <option>orange</option>
-            <option >vert</option>
-            <option>jaune</option>
-            <option>rouge</option>
-        </select>
-
+    <h1>Ma liste</h1>
+    <h2>Rajouter une Note : </h2>
+    
+    
+        <div id="importance">
+            <select id="couleurTextNote">
+                <option value="green">vert : Manana...Demain est un autre jour...</option>
+                <option value="yellow">jaune : Une sieste, un café et puis je m'y mets..</option>
+                <option>orange : pas de sieste, un café et en avant !</option>
+                <option value="red">rouge : A faire pour hier !!</option>
+            </select>
+        </div>
+    <form id="add" action=""></form>
+        <div>
+            <label for="titreTextNote">Ajouter un titre : </label>
+            <input type="text" id="titreTextNote">
+        </div>
+        <div>
+            <label for="texteTextNote">Texte : </label>
+            <input type="text" id="texteTextNote">
+        </div>
+        <div>
+            <label for="dateCreationTextNote"> date de création : </label>
+            <input type="date" id="dateCreationTextNote">
+        </div>
+        <div>
+            <label for="dateRappelTextNote"> date de rappel : </label>
+            <input type="date" id="dateRappelTextNote">
+        </div>
+        
+        <div>
         <button onclick="createTextNote()"> Créer une nouvelle note</button>
-
+        </div>
     </form>
 
     <div id="container">
-        <h1>My To Do List</h1>
+        
 
             
     </div>
@@ -267,7 +278,7 @@ function instantiateNotes(noteParsees,notesArray){
 
 noteA = new CheckListNote("courses",[{"faire des courses chez Aldi":true}],"04/03/2021","yellow","null");
 
-noteB = new TextNote("React","React est une bibliothèque JavaScript libre développée par Facebook depuis 2013.","20/03/2021","red","null");
+noteB = new TextNote("React","React est une bibliothèque JavaScript libre développée par Facebook depuis 2013.","20/03/2021","green","null");
 
 noteC = new CheckListNote("mon avenir",[{"Gagner à l'Euromillion et appeler Shakira":false}],"22/03/2021","red","null");
 
